@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useState  } from 'react'
 import styles from './Card.module.scss'
 
 const Card = ({title, price, imageUrl, onFavorite }) => {
@@ -8,8 +8,6 @@ const Card = ({title, price, imageUrl, onFavorite }) => {
   const onClickPlus = () => {
     setIsAdded(!isAdded)
   }
-
-
 
   return (
     <div> 

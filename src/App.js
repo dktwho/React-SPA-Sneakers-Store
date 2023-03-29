@@ -25,7 +25,6 @@ const arr = [
     price:11320,
     imageUrl: "/img/sneakers/a4.jpg",
   }, 
-
 ]
 
 function App() {
@@ -45,7 +44,12 @@ function App() {
 
         <div className="d-flex">
           {arr.map((el, id) => (
-          <Card key={id} title={el.title} price={el.price} imageUrl={el.imageUrl}/>
+          <Card 
+            key={id} 
+            title={el.title}
+            price={el.price} 
+            imageUrl={el.imageUrl} 
+            onFavorite={() => console.log('add favorite')}/>
           ))}
         </div>
       </div>

@@ -2,10 +2,11 @@
 import React, { useState  } from 'react'
 import styles from './Card.module.scss'
 
-const Card = ({title, price, imageUrl, onFavorite }) => {
+const Card = ({title, price, imageUrl, onFavorite, onPlus }) => {
   const [isAdded, setIsAdded] = useState(false)
 
   const onClickPlus = () => {
+    onPlus({title, price, imageUrl})
     setIsAdded(!isAdded)
   }
 
@@ -22,7 +23,15 @@ const Card = ({title, price, imageUrl, onFavorite }) => {
           <span>Цена</span>
           <b>{price} руб</b>
         </div>
-          <img className={styles.plus} width={35} height={35} src={isAdded ? "/img/btn-checked.svg"  : "/img/plus.svg"} alt="plus" onClick={onClickPlus} />
+          <img 
+          className={styles.plus} 
+          width={35} 
+          height={35} 
+          src={isAdded ? "/img/btn-checked.svg"  : "/img/plus.svg"} 
+          alt="plus" 
+          onClick={onClickPlus} 
+          // onPlus={(obj) => console.log(obj)}
+          />
       </div>
       </div>
     </div>

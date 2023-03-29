@@ -4,13 +4,10 @@ import Drawer from "./components/Drawer";
 import { useEffect, useState } from "react";
 
 
-
-
-
-
 function App() {
   const [cartOpened, setCartOpened] = useState(false)
   const [items, setItems] = useState([])
+  const [cartItems, setCartItems] = useState([])
 
   useEffect(() => {
     fetch('https://6424261bd6152a4d4807c7ae.mockapi.io/items')
@@ -18,11 +15,14 @@ function App() {
     .then(json => setItems(json))
   }, [])
 
-  console.log(items)
+  const onAddToCart = (obj) => {
+    setCartItems(prev => [...prev, obj])
+  }
+
 
   return (
     <div className="wrapper clear">
-      {cartOpened ?   <Drawer onClose={() => setCartOpened(false)} /> : null }
+      {cartOpened ?   <Drawer items={cartItems} onClose={() => setCartOpened(false)} /> : null }
       <Header onOpenCart={() => setCartOpened(true)} />
 
       <div className="content p-40">
@@ -35,13 +35,14 @@ function App() {
         </div>
 
         <div className="d-flex flex-wrap">
-          {items.map((el, id) => (
+          {items.map((item, id) => (
           <Card 
             key={id} 
-            title={el.title}
-            price={el.price} 
-            imageUrl={el.imageUrl} 
-            onFavorite={() => console.log('add favorite')}/>
+            title={item.title}
+            price={item.price} 
+            imageUrl={item.imageUrl} 
+            onFavorite={() => console.log('add favorite')}
+            onPlus={(obj) => onAddToCart(obj)}/>
           ))}
         </div>
       </div>

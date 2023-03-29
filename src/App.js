@@ -1,35 +1,24 @@
 import Card from "./components/Card/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
-const arr = [
-  {
-    title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-    price: 12999,
-    imageUrl: "/img/sneakers/a1.jpg",
-  }, 
-  {
-    title: 'Мужские Кроссовки Nike Air Max 270',
-    price: 15600,
-    imageUrl: "/img/sneakers/a2.jpg",
-  }, 
-  {
-    title: 'Мужские Кроссовки Nike Cross S',
-    price: 9100,
-    imageUrl: "/img/sneakers/a3.jpg",
-  }, 
-  {
-    title: 'Мужские Кроссовки Nike Magic ',
-    price:11320,
-    imageUrl: "/img/sneakers/a4.jpg",
-  }, 
-]
+
+
 
 function App() {
   const [cartOpened, setCartOpened] = useState(false)
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    fetch('https://6424261bd6152a4d4807c7ae.mockapi.io/items')
+    .then(response => response.json())
+    .then(json => setItems(json))
+  }, [])
+
+  console.log(items)
 
   return (
     <div className="wrapper clear">
@@ -45,8 +34,8 @@ function App() {
           </div>
         </div>
 
-        <div className="d-flex">
-          {arr.map((el, id) => (
+        <div className="d-flex flex-wrap">
+          {items.map((el, id) => (
           <Card 
             key={id} 
             title={el.title}

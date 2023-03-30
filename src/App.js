@@ -8,6 +8,7 @@ function App() {
   const [cartOpened, setCartOpened] = useState(false)
   const [items, setItems] = useState([])
   const [cartItems, setCartItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     fetch('https://6424261bd6152a4d4807c7ae.mockapi.io/items')
@@ -19,6 +20,9 @@ function App() {
     setCartItems(prev => [...prev, obj])
   }
 
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value) 
+  }
 
   return (
     <div className="wrapper clear">
@@ -27,15 +31,16 @@ function App() {
 
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40" >
-        <h1 className="">Все кроссовки</h1>
+        <h1 className="">{searchValue ? `Поиск по запросу: ${searchValue}` : 'Все кроссовки'}</h1>
           <div className="search-block d-flex">
             <img src="/img/search.svg" alt="search" />
-            <input type="text" placeholder="Поиск..." />
+            {searchValue && <img onClick={() => setSearchValue('')}  className="clear cu-p" src="/img/deleteItem.svg" alt="clear" />}
+            <input value={searchValue}  onChange={onChangeSearchInput} type="text" placeholder="Поиск..." />
           </div>
         </div>
 
         <div className="d-flex flex-wrap">
-          {items.map((item, id) => (
+          {items.filter((item) => item.title.toLowerCase().includes(searchValue.toLocaleLowerCase())).map((item, id) => (
           <Card 
             key={id} 
             title={item.title}

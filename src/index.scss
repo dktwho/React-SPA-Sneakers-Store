@@ -31,13 +31,20 @@ header {
   }
 }
 
-
-
 .search-block {
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
   border-color: rgb(170, 168, 168);
+  position: relative;
+
+  .clear {
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    width: 35px;
+    height: 35px;
+  }
 
   input {
     border: 0;

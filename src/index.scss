@@ -57,6 +57,8 @@ header {
 .favorite {
   position: absolute;
   cursor: pointer;
+  width: 50px;
+  height: 50px;
 }
 
 .overlay {
@@ -130,6 +132,34 @@ header {
       position: absolute;
       right: 30px;
       top: 20px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
+
+.cartEmpty {
+  text-align: center;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .greenButton {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
       transition: transform 0.15s ease-in-out;
     }
   }

@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import { useEffect, useState } from "react";
 
-
 function App() {
   const [cartOpened, setCartOpened] = useState(false)
   const [items, setItems] = useState([])
@@ -14,7 +13,6 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [favorites, setFavorites] = useState([])
 
- 
   useEffect(() => {
     axios.get('http://localhost:3030/item')
     .then(res => {setItems(res.data)})
@@ -45,9 +43,8 @@ function App() {
       setFavorites((prev) => [...prev, data])
       }
     } catch (error) {
-      alert('не удалось добавить в избранное')
+      
     }
-   
   }
     
   const onChangeSearchInput = (event) => {
@@ -63,8 +60,6 @@ function App() {
         <Route path="/" element={<Home items={items} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
         <Route path="/favorites" element={<Favorites items={favorites} onAddFavorite={onAddFavorite} />} />
       </Routes>
-     
-
     </div>
   );
 }

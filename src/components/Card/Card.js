@@ -14,7 +14,6 @@ const Card = ({title, price, imageUrl, onAddFavorite, onPlus, id, favorited = fa
   const onClickFavorite = () => {
     onAddFavorite({title, price, imageUrl, id})
     setIsFavorite(!isFavorite)
-    console.log(isFavorite)
   }
 
   return (

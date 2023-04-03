@@ -107,7 +107,6 @@ app.get('/favorites', (req, res) => {
   return res.json(DB.favorites);
 });
 
-
 app.post('/cart', urlencodedParser, (req, res) => {
   if(!req.body) return res.sendStatus(400);
   const newItem = req.body

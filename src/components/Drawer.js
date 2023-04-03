@@ -3,6 +3,7 @@
 import React from 'react'
 
 const Drawer = ({onClose, items = [], onRemove}) => {
+
   return (
     <div>
       <div className="overlay" >
@@ -15,7 +16,7 @@ const Drawer = ({onClose, items = [], onRemove}) => {
             items.length > 0 ? 
             <div className="items">
             {items.map((obj) => (
-              <div className="cartItem d-flex align-center mb-20">
+              <div key={obj.id}  className="cartItem d-flex align-center mb-20">
               <div 
                 style={{ backgroundImage: `url(${obj.imageUrl})` }} 
                 className="cartItemImg ">

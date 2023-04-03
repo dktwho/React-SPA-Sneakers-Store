@@ -134,6 +134,11 @@ app.delete('/cart/:id', (req, res) => {
   res.status(200).json({message: 'deleted successfull'})
 });
 
+app.delete('/favorites/:id', (req, res) => {
+  DB.favorites = DB.favorites.filter((el) => el.id !== req.params.id);
+  res.status(200).json({message: 'deleted successfull'})
+});
+
 app.listen(PORT, () => {
   console.log('Server has been started on port ', PORT);
 });

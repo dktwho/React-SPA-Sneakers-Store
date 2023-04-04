@@ -71,8 +71,12 @@ function App() {
     setSearchValue(event.target.value) 
   }
 
+  const isItemAdded = (id) => {
+    return cartItems.some((obj) => obj.id === id)
+  }
+
   return (
-    <AppContext.Provider value={{ favorites }}>
+    <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded }}>
       <div className="wrapper clear">
       {cartOpened ?   <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)} /> : null }
       <Header onOpenCart={() => setCartOpened(true)} />

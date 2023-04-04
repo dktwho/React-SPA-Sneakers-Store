@@ -89,6 +89,10 @@ let DB = {
     favorites: [
 
     ],
+
+    orders: [
+
+    ],
 };
 
 app.use(express.json());
@@ -107,6 +111,10 @@ app.get('/favorites', (req, res) => {
   return res.json(DB.favorites);
 });
 
+app.get('/orders', (req, res) => {
+  return res.json(DB.orders);
+});
+
 app.post('/cart', urlencodedParser, (req, res) => {
   if(!req.body) return res.sendStatus(400);
   const newItem = req.body
@@ -119,6 +127,13 @@ app.post('/favorites', urlencodedParser, (req, res) => {
   const newItem2 = req.body
   DB.favorites.push(newItem2);
   return res.json(newItem2);
+});
+
+app.post('/orders', urlencodedParser, (req, res) => {
+  if(!req.body) return res.sendStatus(400);
+  const newItem3 = req.body
+  DB.orders.push(newItem3);
+  return res.json(newItem3);
 });
 
 // // app.patch('/api/v1/todos', (req, res) => {

@@ -8,6 +8,7 @@ const Home = ({
   items,
   onAddFavorite,
   onAddToCart,
+  cartItems,
 }) => {
   return (
     <div className="content p-40">
@@ -48,6 +49,7 @@ const Home = ({
               imageUrl={item.imageUrl}
               onAddFavorite={(obj) => onAddFavorite(obj)}
               onPlus={(obj) => onAddToCart(obj)}
+              added={cartItems.some(obj => obj.id === item.id)}
             />
           ))}
       </div>

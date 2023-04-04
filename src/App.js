@@ -14,18 +14,32 @@ function App() {
   const [favorites, setFavorites] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:3030/item')
-    .then(res => {setItems(res.data)})
-    axios.get('http://localhost:3030/cart')
-    .then(res => {setCartItems(res.data)})
-    axios.get('http://localhost:3030/favorites')
-    .then(res => {setFavorites(res.data)})
+   async function fetchData() {
+     const cartResponse  = await axios.get('http://localhost:3030/cart')
+     const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
+     const itemsResponse = await  axios.get('http://localhost:3030/item')
+
+     setCartItems(cartResponse.data)
+     setFavorites(favoritesResponse.data)
+     setItems(itemsResponse.data)
+   }
+   fetchData()
   }, [])
   
   
-  const onAddToCart = (obj) => {
-    axios.post('http://localhost:3030/cart', obj)
-    setCartItems((prev) => [...prev, obj])
+  const onAddToCart = async (obj) => {
+    try {
+      if(cartItems.find((item) => item.id === obj.id)) {
+        axios.delete(`http://localhost:3030/cart/${obj.id}`)
+        setCartItems((prev) => prev.filter((item) => item.id !== obj.id))
+      } else {
+      axios.post('http://localhost:3030/cart', obj)
+      setCartItems((prev) => [...prev, obj])
+      }
+    } catch (error) {
+      // console.log('error axios to cart', error.message)
+    }
+   
   }
 
   const onRemoveItem = (id) => {
@@ -37,13 +51,13 @@ function App() {
     try {
       if(favorites.find((favObj) => favObj.id === obj.id )) {
         axios.delete(`http://localhost:3030/favorites/${obj.id}`)
-        // ! setFavorites((prev) => prev.filter(item => item.id !== obj.id))
+        setFavorites((prev) => prev.filter(item => item.id !== obj.id))
       } else {
       const { data } = await axios.post('http://localhost:3030/favorites', obj)
       setFavorites((prev) => [...prev, data])
       }
     } catch (error) {
-      
+      //console.log('error axios to favorites',  error.message)
     }
   }
     
@@ -57,7 +71,7 @@ function App() {
       <Header onOpenCart={() => setCartOpened(true)} />
 
       <Routes>
-        <Route path="/" element={<Home items={items} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
+        <Route path="/" element={<Home items={items}  cartItems={cartItems} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
         <Route path="/favorites" element={<Favorites items={favorites} onAddFavorite={onAddFavorite} />} />
       </Routes>
     </div>

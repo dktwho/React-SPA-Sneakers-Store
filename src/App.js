@@ -5,6 +5,8 @@ import Drawer from "./components/Drawer";
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import { useEffect, useState } from "react";
+import  AppContext  from './context';
+
 
 function App() {
   const [cartOpened, setCartOpened] = useState(false)
@@ -14,12 +16,13 @@ function App() {
   const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
+
   useEffect(() => {
    async function fetchData() {
      const cartResponse  = await axios.get('http://localhost:3030/cart')
      const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
      const itemsResponse = await  axios.get('http://localhost:3030/item')
-     
+
      setIsLoading(false)
 
      setCartItems(cartResponse.data)
@@ -69,7 +72,8 @@ function App() {
   }
 
   return (
-    <div className="wrapper clear">
+    <AppContext.Provider value={{ favorites }}>
+      <div className="wrapper clear">
       {cartOpened ?   <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)} /> : null }
       <Header onOpenCart={() => setCartOpened(true)} />
 
@@ -78,6 +82,8 @@ function App() {
         <Route path="/favorites" element={<Favorites items={favorites} onAddFavorite={onAddFavorite} />} />
       </Routes>
     </div>
+    </AppContext.Provider>
+    
   );
 }
 

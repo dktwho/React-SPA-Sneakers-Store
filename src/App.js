@@ -12,12 +12,15 @@ function App() {
   const [cartItems, setCartItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [favorites, setFavorites] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
    async function fetchData() {
      const cartResponse  = await axios.get('http://localhost:3030/cart')
      const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
      const itemsResponse = await  axios.get('http://localhost:3030/item')
+     
+     setIsLoading(false)
 
      setCartItems(cartResponse.data)
      setFavorites(favoritesResponse.data)
@@ -71,7 +74,7 @@ function App() {
       <Header onOpenCart={() => setCartOpened(true)} />
 
       <Routes>
-        <Route path="/" element={<Home items={items}  cartItems={cartItems} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
+        <Route path="/" element={<Home items={items}  isLoading={isLoading} cartItems={cartItems} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
         <Route path="/favorites" element={<Favorites items={favorites} onAddFavorite={onAddFavorite} />} />
       </Routes>
     </div>

@@ -32,7 +32,6 @@ function App() {
    fetchData()
   }, [])
   
-  
   const onAddToCart = async (obj) => {
     try {
       if(cartItems.find((item) => item.id === obj.id)) {
@@ -45,7 +44,6 @@ function App() {
     } catch (error) {
       // console.log('error axios to cart', error.message)
     }
-   
   }
 
   const onRemoveItem = (id) => {

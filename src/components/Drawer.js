@@ -10,12 +10,10 @@ const Drawer = ({onClose, items = [], onRemove, }) => {
   const [orderId, setOrderId] = useState(null)
 
 
- 
   const onClickOrder = async () => {
     try {
       setIsLoading(true)
-      const { data } = await axios.post('http://localhost:3030/orders', ...cartItems  )
-      // await axios.post('http://localhost:3030/orders', ...cartItems)
+      const { data } = await axios.post('http://localhost:3030/orders', ...cartItems)
       await axios.put('http://localhost:3030/cart', [])
       setCartItems([])
       setOrderId(data.id)
@@ -24,9 +22,7 @@ const Drawer = ({onClose, items = [], onRemove, }) => {
       // console.log('не удалось создать заказ')
     }
     setIsLoading(false)
-    
   }
-
 
   return (
     <div>

@@ -143,19 +143,6 @@ app.post('/orders', urlencodedParser, (req, res) => {
   return res.json(...defArr);
  });
 
-// app.post('/orders', urlencodedParser, (req, res) => {
-//   if(!req.body) return res.sendStatus(400);
-//   DB.cart.push([]);
-//   return res.json();
-// });
-
-// // app.patch('/api/v1/todos', (req, res) => {
-// //   const currentTodo = DB.todos.find((todo) => todo.id === req.body.id);
-// //   currentTodo.completed = !currentTodo.completed;
-// //   return res.json(currentTodo);
-// // });
-
-
 app.delete('/cart/:id', (req, res) => {
   DB.cart = DB.cart.filter((el) => el.id !== req.params.id);
   res.status(200).json({message: 'deleted successfull'})

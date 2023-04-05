@@ -9,8 +9,6 @@ const Card = ({title, price, imageUrl, onAddFavorite,  onPlus, id, favorited = f
   const [isFavorite, setIsFavorite] = useState(favorited)
   const {isItemAdded} = React.useContext(AppContext)
 
-
-
   const onClickPlus = (obj) => {
     onPlus({title, price, imageUrl, id})
     // setIsAdded(!isAdded)
@@ -60,7 +58,6 @@ const Card = ({title, price, imageUrl, onAddFavorite,  onPlus, id, favorited = f
           />
       </div> 
        </> }
-     
        </div>
     </div>
   )

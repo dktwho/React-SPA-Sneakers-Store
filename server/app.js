@@ -122,6 +122,7 @@ app.post('/cart', urlencodedParser, (req, res) => {
   return res.json(newItem);
 });
 
+
 app.post('/favorites', urlencodedParser, (req, res) => {
   if(!req.body) return res.sendStatus(400);
   const newItem2 = req.body
@@ -135,6 +136,12 @@ app.post('/orders', urlencodedParser, (req, res) => {
   DB.orders.push(newItem3);
   return res.json(newItem3);
 });
+
+ app.put('/cart', (req, res) => {
+  const defArr = []
+  DB.cart = defArr
+  return res.json(...defArr);
+ });
 
 // app.post('/orders', urlencodedParser, (req, res) => {
 //   if(!req.body) return res.sendStatus(400);

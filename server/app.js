@@ -136,6 +136,12 @@ app.post('/orders', urlencodedParser, (req, res) => {
   return res.json(newItem3);
 });
 
+// app.post('/orders', urlencodedParser, (req, res) => {
+//   if(!req.body) return res.sendStatus(400);
+//   DB.cart.push([]);
+//   return res.json();
+// });
+
 // // app.patch('/api/v1/todos', (req, res) => {
 // //   const currentTodo = DB.todos.find((todo) => todo.id === req.body.id);
 // //   currentTodo.completed = !currentTodo.completed;

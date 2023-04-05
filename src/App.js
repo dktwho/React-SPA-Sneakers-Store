@@ -21,7 +21,7 @@ function App() {
    async function fetchData() {
      const cartResponse  = await axios.get('http://localhost:3030/cart')
      const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
-     const itemsResponse = await  axios.get('http://localhost:3030/item')
+     const itemsResponse = await axios.get('http://localhost:3030/item')
 
      setIsLoading(false)
 
@@ -76,7 +76,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded, setCartOpened, setCartItems }}>
+    <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded, setCartOpened, setCartItems, onAddFavorite }}>
       <div className="wrapper clear">
       {cartOpened ?   <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)} /> : null }
       <Header onOpenCart={() => setCartOpened(true)} />

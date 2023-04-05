@@ -3,28 +3,29 @@ import Info from './Info'
 import AppContext from '../context'
 import axios from 'axios'
 
-const Drawer = ({onClose, items = [], onRemove}) => {
+const Drawer = ({onClose, items = [], onRemove, }) => {
   const { cartItems, setCartItems } = useContext(AppContext)
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [orderId, setOrderId] = useState(null)
 
+
+ 
   const onClickOrder = async () => {
-    console.log(cartItems)
     try {
       setIsLoading(true)
-      const {data} = await axios.post('http://localhost:3030/orders', {
-        items: cartItems,
-      })
-      await axios.put('http://localhost:3030/cart', [])
+      const { data } = await axios.post('http://localhost:3030/orders', ...cartItems  )
+      // axios.put('http://localhost:3030/cart', [])
+      setCartItems([])
       setOrderId(data.id)
       setIsOrderComplete(true)
-      setCartItems([])
     } catch (error) {
       // console.log('не удалось создать заказ')
     }
     setIsLoading(false)
+    
   }
+
 
   return (
     <div>
@@ -64,13 +65,19 @@ const Drawer = ({onClose, items = [], onRemove}) => {
               </li>
             </ul>
 
-            <button disabled={isLoading} onClick={onClickOrder} className="greenButton" >Оформить заказ <img src="/img/arrow.svg" alt="arrow" /></button>
+            <button 
+              disabled={isLoading} 
+              onClick={onClickOrder} 
+              className="greenButton" >Оформить заказ 
+              <img src="/img/arrow.svg" alt="arrow" />
+            </button>
+            
             </div>
           </div> 
           : (
             <Info 
               title={isOrderComplete ? "Заказ оформлен" : "Корзина пустая" }
-              description={isOrderComplete ? `Ваш заказ №${orderId} скоро будет передан в службу доставки` : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ"}
+              description={isOrderComplete ? `Ваш заказ № ${orderId.slice(1, 8)} скоро будет передан в службу доставки` : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ"}
               image={isOrderComplete ? "/img/orderDone.jpg" : "/img/cart-empty.jpg"}/>
           )
           }

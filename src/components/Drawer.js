@@ -14,13 +14,12 @@ const Drawer = ({onClose, items = [], onRemove, }) => {
   const onClickOrder = async () => {
     try {
       setIsLoading(true)
-      // const { data } = await axios.post('http://localhost:3030/orders', ...cartItems  )
-      await axios.post('http://localhost:3030/orders', ...cartItems)
+      const { data } = await axios.post('http://localhost:3030/orders', ...cartItems  )
+      // await axios.post('http://localhost:3030/orders', ...cartItems)
       await axios.put('http://localhost:3030/cart', [])
       setCartItems([])
-      setOrderId(...cartItems.id)
+      setOrderId(data.id)
       setIsOrderComplete(true)
-      
     } catch (error) {
       // console.log('не удалось создать заказ')
     }

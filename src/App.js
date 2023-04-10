@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import Header from "./components/Header";
-import Drawer from "./components/Drawer";
+import Drawer from "./components/Drawer/Drawer";
 import  AppContext  from './context';
 
 import Home from './pages/Home';
@@ -77,7 +77,9 @@ function App() {
   return (
     <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded, setCartOpened, setCartItems, onAddFavorite, onAddToCart }}>
       <div className="wrapper clear">
-      {cartOpened ?   <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)} /> : null }
+
+        <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)}  opened={cartOpened}/>
+      {/* {cartOpened ?    : null } */}
       <Header onOpenCart={() => setCartOpened(true)} />
 
       <Routes>

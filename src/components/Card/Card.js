@@ -38,9 +38,11 @@ const Card = ({title, price, imageUrl, onAddFavorite,  onPlus, id, favorited = f
     <rect x="124" y="230" rx="10" ry="10" width="35" height="35" />
   </ContentLoader>  : 
   <>
-     <div className={styles.favorite}  onClick={onAddFavorite}  >
-      <img className="favorite" onClick={() => onClickFavorite()} src={isFavorite ? "/img/liked.svg"  : "/img/unliked.svg"}   alt="unliked" />
-      </div>
+   {onAddFavorite &&  
+      <div className={styles.favorite}  onClick={onAddFavorite}  >
+        <img className="favorite" onClick={() => onClickFavorite()} src={isFavorite ? "/img/liked.svg"  : "/img/unliked.svg"}   alt="unliked" />
+      </div>}
+     
       <img width='100%' height={140} src={imageUrl} alt="sneakers" />
       <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
@@ -48,14 +50,14 @@ const Card = ({title, price, imageUrl, onAddFavorite,  onPlus, id, favorited = f
           <span>Цена</span>
           <b>{price} руб</b>
         </div>
-          <img 
+         { onPlus &&  <img 
           className={styles.plus} 
           width={35} 
           height={35} 
           src={isItemAdded(id) ? "/img/btn-checked.svg"  : "/img/plus.svg"} 
           alt="plus" 
           onClick={() => onClickPlus()} 
-          />
+          />}
       </div> 
        </> }
        </div>

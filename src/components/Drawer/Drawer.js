@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import Info from './Info'
 import axios from 'axios'
-import { useCart } from '../hooks/useCart'
 
-const Drawer = ({onClose, items = [], onRemove, }) => {
+import Info from '../Info'
+import { useCart } from '../../hooks/useCart'
+
+import styles from './Drawer.module.scss'
+
+
+const Drawer = ({onClose, items = [], onRemove, opened }) => {
   const {cartItems, setCartItems, totalPrice} = useCart()
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -25,8 +29,8 @@ const Drawer = ({onClose, items = [], onRemove, }) => {
 
   return (
     <div>
-      <div className="overlay" >
-      <div className="drawer" >
+      <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''} `} >
+      <div className={styles.drawer} >
           <h2 
           className="d-flex justify-between mb-30 ">Корзина
           <img onClick={onClose} className="removeBtn cu-p" src="/img/deleteItem.svg" alt="Delete" />

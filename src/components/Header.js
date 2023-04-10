@@ -4,7 +4,7 @@ import { useCart } from '../hooks/useCart'
 
 
 const Header = ({ onOpenCart }) => {
-  const { totalPrice } = useCart()
+  const { totalPrice} = useCart()
 
   return (
     <div>
@@ -18,16 +18,24 @@ const Header = ({ onOpenCart }) => {
           </div>
         </div>
         </Link>
+        
         <ul className="d-flex">
           <li onClick={onOpenCart} className="mr-30 cu-p"><img width={18} height={18} src="/img/card.svg" alt="card"/>
             <span>{totalPrice}</span>
           </li>
+
           <li className="mr-20 cu-p">
             <Link to='/favorites'>
               <img width={18} height={18} src="/img/favoriteIcon.svg" alt="favorite"/>
             </Link>
           </li>
-          <li><img width={18} height={18} src="/img/user.svg" alt="user"/></li>
+
+          <li>
+            <Link to='/orders'>
+              <img width={18} height={18} src="/img/user.svg" alt="orders"/>
+            </Link>
+          </li>
+
         </ul>
       </header>
     </div>

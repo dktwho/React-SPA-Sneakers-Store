@@ -1,11 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
+import { useEffect, useState } from "react";
 import axios from 'axios'
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import  AppContext  from './context';
+
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
-import { useEffect, useState } from "react";
-import  AppContext  from './context';
+import Orders from './pages/Orders';
 
 
 function App() {
@@ -15,10 +17,6 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
-
-
-
 
   useEffect(() => {
    async function fetchData() {
@@ -77,7 +75,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded, setCartOpened, setCartItems, onAddFavorite }}>
+    <AppContext.Provider value={{ favorites, items, cartItems, isItemAdded, setCartOpened, setCartItems, onAddFavorite, onAddToCart }}>
       <div className="wrapper clear">
       {cartOpened ?   <Drawer items={cartItems} onRemove={onRemoveItem} onClose={() => setCartOpened(false)} /> : null }
       <Header onOpenCart={() => setCartOpened(true)} />
@@ -85,6 +83,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home items={items}  isLoading={isLoading} cartItems={cartItems} searchValue={searchValue} setSearchValue={setSearchValue} onAddToCart={onAddToCart} onAddFavorite={onAddFavorite} onChangeSearchInput={onChangeSearchInput} />} />
         <Route path="/favorites" element={<Favorites items={favorites} onAddFavorite={onAddFavorite} />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </div>
     </AppContext.Provider>

@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import Card from "../components/Card/Card";
-import AppContext from "../context";
 
 const Home = ({
   searchValue,
@@ -11,10 +10,7 @@ const Home = ({
   onAddToCart,
   cartItems,
   isLoading,
-  
 }) => {
-
-
   const renderItems = () => {
     const filteredItems =
       items &&

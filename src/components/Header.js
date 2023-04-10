@@ -1,12 +1,10 @@
-import React, {useContext} from 'react'
+import React  from 'react'
 import { Link } from 'react-router-dom'
-import AppContext from '../context'
+import { useCart } from '../hooks/useCart'
 
 
 const Header = ({ onOpenCart }) => {
-
-  const { cartItems } = useContext(AppContext)
-  const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
+  const { totalPrice } = useCart()
 
   return (
     <div>

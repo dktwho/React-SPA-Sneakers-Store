@@ -20,15 +20,20 @@ function App() {
 
   useEffect(() => {
    async function fetchData() {
-     const cartResponse  = await axios.get('http://localhost:3030/cart')
-     const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
-     const itemsResponse = await axios.get('http://localhost:3030/item')
 
-     setIsLoading(false)
+    try {
+      const cartResponse  = await axios.get('http://localhost:3030/cart')
+      const favoritesResponse  = await axios.get('http://localhost:3030/favorites')
+      const itemsResponse = await axios.get('http://localhost:3030/item')
 
-     setCartItems(cartResponse.data)
-     setFavorites(favoritesResponse.data)
-     setItems(itemsResponse.data)
+      setIsLoading(false)
+
+      setCartItems(cartResponse.data)
+      setFavorites(favoritesResponse.data)
+      setItems(itemsResponse.data)
+    } catch (error) {
+      console.log('error request data ;(')
+    }
    }
    fetchData()
   }, [])
@@ -36,20 +41,24 @@ function App() {
   const onAddToCart = async (obj) => {
     try {
       if(cartItems.find((item) => item.id === obj.id)) {
-        axios.delete(`http://localhost:3030/cart/${obj.id}`)
         setCartItems((prev) => prev.filter((item) => item.id !== obj.id))
+        await axios.delete(`http://localhost:3030/cart/${obj.id}`)
       } else {
-      axios.post('http://localhost:3030/cart', obj)
-      setCartItems((prev) => [...prev, obj])
+        setCartItems((prev) => [...prev, obj])
+        await axios.post('http://localhost:3030/cart', obj)
       }
     } catch (error) {
       // console.log('error axios to cart', error.message)
     }
   }
 
-  const onRemoveItem = (id) => {
-    axios.delete(`http://localhost:3030/cart/${id}`)
-    setCartItems((prev) => prev.filter(item => item.id !== id))
+  const onRemoveItem =  (id) => {
+    try {
+       axios.delete(`http://localhost:3030/cart/${id}`)
+      setCartItems((prev) => prev.filter(item => item.id !== id))
+    } catch (error) {
+      console.log('error remove cart item')
+    }
   }
 
   const onAddFavorite = async (obj) => {

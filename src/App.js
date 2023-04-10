@@ -17,6 +17,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
 
 
+
+
+
   useEffect(() => {
    async function fetchData() {
      const cartResponse  = await axios.get('http://localhost:3030/cart')
